@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/yevgenko/cookbook-php-fpm.svg?branch=master)](https://travis-ci.org/yevgenko/cookbook-php-fpm)
+
 Description
 ===========
 
@@ -24,7 +26,7 @@ The `apt_repository` and `yum_repository` LWRPs are used from these cookbooks to
 Description
 ==========
 
-Creates a PHP-FPM configuration file at the path specified.  Meant to be deployed with a service init scheme/supervisor such as runit.  Please see the `application::php-fpm` recipe for a complete working example. In depth information about PHP-FPM's configuration values can be [found in the PHP-FPM documentation](http://php-fpm.org/wiki/Configuration_File).
+Creates a PHP-FPM configuration file at the path specified.  Meant to be deployed with a service init scheme/supervisor such as runit.  Please see the `application::php-fpm` recipe for a complete working example. In depth information about PHP-FPM's configuration values can be [found in the PHP-FPM documentation](http://php.net/manual/en/install.fpm.configuration.php).
 
 Usage
 =====
@@ -76,6 +78,57 @@ php_fpm_pool "www" do
   enable false
 end
 ```
+
+Development
+===========
+
+### Requirements
+
+* [Docker](https://www.docker.com/)
+
+### Setup
+
+To get all dependencies:
+
+```
+bundle install
+```
+
+### Test
+
+To see available platforms:
+
+```
+bundle exec rake -T
+```
+
+To test particular platform:
+
+```
+bundle exec rake kitchen:default-ubuntu-1604
+```
+
+To test all platforms:
+
+```
+bundle exec rake kitchen:all
+```
+
+### Publishing (maintainers only!)
+
+Bump version in metadata.rb, commit and push to master!
+
+```
+bundle exec rake publish
+```
+
+as a result new tag will be created and pushed to github as well as new version
+will be published on https://supermarket.chef.io
+
+Contributing
+===========
+
+Please do not bump version when proposing a change, no other rules ;)
 
 License and Author
 ==================

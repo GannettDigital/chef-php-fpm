@@ -1,20 +1,24 @@
 ---
 driver:
   name: vagrant
+  pre_create_command: "cd {{vagrant_root}}/ && vagrant box update"
 
 provisioner:
-  name: chef_solo
+  name: chef_zero
+  log_level: <%= ENV['CHEF_LOG_LEVEL'] || 'auto' %>
+
+verifier:
+  name: inspec
 
 platforms:
-  - name: ubuntu-12.04
-  - name: centos-6.4
+  - name: gannett/gci-centos7
 
 suites:
   - name: default
     run_list:
-      - recipe[php-fpm::default]
+      - recipe[php-fpm::test]
     attributes:
       php-fpm:
         pools:
-          - name: web
-            listen: '127.0.0.1:9081'
+          - name: www
+            listen: '127.0.0.1:9001'
