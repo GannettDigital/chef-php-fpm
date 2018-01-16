@@ -1,22 +1,17 @@
 ---
 driver:
-  name: docker
-  use_sudo: false
+  name: vagrant
+  pre_create_command: "cd {{vagrant_root}}/ && vagrant box update"
 
 provisioner:
   name: chef_zero
+  log_level: <%= ENV['CHEF_LOG_LEVEL'] || 'auto' %>
+
+verifier:
+  name: inspec
 
 platforms:
-  - name: ubuntu-12.04
-  - name: ubuntu-16.04
-    driver:
-      privileged: true
-      run_command: init
-  - name: centos-6.7
-  # - name: fedora-24
-  #   driver:
-  #     privileged: true
-  #     run_command: init
+  - name: gannett/gci-centos7
 
 suites:
   - name: default
@@ -25,5 +20,5 @@ suites:
     attributes:
       php-fpm:
         pools:
-          - name: web
-            listen: '127.0.0.1:9081'
+          - name: www
+            listen: '127.0.0.1:9001'
